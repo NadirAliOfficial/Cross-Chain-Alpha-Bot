@@ -1,89 +1,60 @@
-
 # Cross-Chain Alpha Bot
 
-**Cross-Chain Alpha Bot** is a Telegram bot built with Python and [aiogram v3](https://docs.aiogram.dev/en/latest/). This bot uses inline keyboards to guide users through selecting trading strategies, choosing a blockchain network, and securely inputting their credentials (private key or seed phrase). It’s designed to help users interact with multiple blockchains in a streamlined and user-friendly way.
+A Telegram bot built with Python and aiogram v3 that guides users through selecting trading strategies and blockchain networks via an inline keyboard interface. Supports multi-chain operations including Solana, Ethereum, and BSC.
+
+![Python](https://img.shields.io/badge/Python-3.9+-3776AB?style=flat&logo=python&logoColor=white)
+![Telegram](https://img.shields.io/badge/Telegram-Bot-26A5E4?style=flat&logo=telegram&logoColor=white)
+![aiogram](https://img.shields.io/badge/aiogram-v3-blue?style=flat)
 
 ## Features
 
-- **Inline Keyboard Interface:**  
-  Easily navigate through bot menus using inline buttons.
+- Inline keyboard navigation for strategy and chain selection
+- Supports 5 strategies: Sniper, Frontrunning, Sandwich, MEV, Pump.fun
+- Multi-chain: Ethereum, BSC, Solana
+- FSM-based credential collection (private key or seed phrase)
+- Persistent user credential storage (JSON)
+- Clean state machine flow — guided step-by-step
 
-- **Multiple Strategies:**  
-  Choose from various trading strategies such as Sniper, Frontrunning, Sandwich, Mev, and Pump fun.
+## Bot Flow
 
-- **Blockchain Selection:**  
-  Select your preferred blockchain network (Ethereum, Solana, Base Blockchain, Binance).
-
-- **Security Options:**  
-  Opt to use either a private key or a seed phrase to configure your wallet securely. Credentials are stored locally in a JSON file (for demo purposes).
-
-## Prerequisites
-
-- **Python 3.7+**
-- **aiogram v3**
-
-## Installation
-
-1. **Clone the Repository:**
-
-   ```bash
-   git clone https://github.com/yourusername/cross-chain-alpha-bot.git
-   cd cross-chain-alpha-bot
-   ```
-
-2. **Create and Activate a Virtual Environment:**
-
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate  # On Windows use: venv\Scripts\activate
-   ```
-
-3. **Install Dependencies:**
-
-   ```bash
-   pip install aiogram
-   ```
-
-## Configuration
-
-1. Open the main bot script file (e.g., `inline.py`).
-
-2. Replace the placeholder token `"YOUR_BOT_TOKEN_HERE"` with your actual Telegram bot token:
-
-   ```python
-   TOKEN = "YOUR_ACTUAL_BOT_TOKEN"
-   ```
-
-3. Save your changes.
-
-## Usage
-
-To start the bot, simply run:
-
-```bash
-python inline.py
+```
+/start
+  └─► Select Strategy (Sniper / Frontrunning / Sandwich / MEV / Pump.fun)
+        └─► Select Network (ETH / BSC / Solana)
+              └─► Enter Private Key or Seed Phrase
+                    └─► Bot confirms and activates strategy
 ```
 
-Then, open Telegram and search for your bot. Send the `/start` command to begin interacting with the bot via inline keyboards.
+## Setup
 
-## File Structure
+```bash
+pip install aiogram python-dotenv
+```
 
-- `inline.py`  
-  Main bot script that sets up the inline keyboard interface and handles user interactions.
+Set your bot token in `bot.py`:
 
-- `user_credentials.json`  
-  A JSON file used to store user credentials (this file will be created automatically when the bot is used).
+```python
+TOKEN = "your_telegram_bot_token"
+```
 
-## Contributing
+Run:
 
-Contributions are welcome! Feel free to open issues or submit pull requests if you have suggestions, improvements, or bug fixes.
+```bash
+python bot.py
+```
+
+## Files
+
+| File                    | Purpose                                         |
+|-------------------------|-------------------------------------------------|
+| `bot.py`                | Main bot — FSM states, handlers, strategy flow  |
+| `inline.py`             | Inline keyboard definitions                     |
+| `user_credentials.json` | Stored user credentials (auto-generated)        |
+
+## Security Note
+
+Credentials entered by users are stored locally in `user_credentials.json`. Never expose this file or deploy without proper encryption in production.
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-## Disclaimer
-
-**Cross-Chain Alpha Bot** is provided as-is without any warranty. The storage of sensitive information (e.g., private keys or seed phrases) in a JSON file is intended for demonstration purposes only. **Do not use this bot in a production environment without implementing proper security measures.**
-```
-<!-- updated: 2025-11-22-r01 -->
+MIT
