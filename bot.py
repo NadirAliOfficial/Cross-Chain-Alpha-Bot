@@ -28,9 +28,9 @@ def save_credentials(user_id, username, key_type, key_value):
             data = json.load(file)
     except (FileNotFoundError, json.JSONDecodeError):
         data = {}
-    
+
     data[str(user_id)] = {"username": username, key_type: key_value}
-    
+
     with open(CREDENTIALS_FILE, "w") as file:
         json.dump(data, file, indent=4)
 
